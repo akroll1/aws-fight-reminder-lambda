@@ -1,5 +1,5 @@
 {
-  "AddNoteLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:896748474789:function:sns-fight-reminder-dev-addNote:1",
+  "ReminderLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:896748474789:function:sns-fight-reminder-dev-reminder:2",
   "ServiceEndpoint": "https://1dy1emvym0.execute-api.us-east-1.amazonaws.com/dev",
   "ServerlessDeploymentBucketName": "sns-fight-reminder-dev-serverlessdeploymentbucket-1apzcnmz8yo5k"
 }

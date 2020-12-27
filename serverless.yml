@@ -17,17 +17,55 @@ provider:
   stage: dev
   environment:
     TOPIC_ARN: "arn:aws:sns:us-east-1:896748474789:fight-reminders"
+    REMINDER_TABLE: "arn:aws:dynamodb:us-east-1:896748474789:table/${self:service}-${self:custom.stage}-reminder-table"
+
   iamRoleStatements:
     - Effect: "Allow"
       Resource: "*"
       Action:
         - "sns:*"
 
+    - Effect: Allow
+      Resource:        
+        - "arn:aws:dynamodb:us-east-1:896748474789:table/${self:service}-${self:custom.stage}-reminder-table"
+
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+
 functions:
+  authorizer:
+    handler: src/authorizer.auth
+    
   reminder:
-    handler: reminder.publish
+    handler: src/reminder.publish
     events:
       - http:
           path: reminder
           method: post
           cors: true
+
+resources:
+  Resources:
+    ReminderTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        KeySchema:
+          - AttributeName: showId
+            KeyType: HASH
+          - AttributeName: time
+            KeyType: RANGE
+        AttributeDefinitions:
+          - AttributeName: showId
+            AttributeType: S
+          - AttributeName: time
+            AttributeType: S
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:service}-${self:custom.stage}-reminder-table
