@@ -1,0 +1,33 @@
+service: sns-fight-reminder
+
+plugins: 
+  - serverless-stack-output
+  - serverless-offline
+
+frameworkVersion: "^2.0.0"
+custom: 
+  output:
+    file: ./data.json
+  stage: ${opt:stage, 'dev'}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  stage: dev
+  environment:
+    TOPIC_ARN: "arn:aws:sns:us-east-1:896748474789:fight-reminders"
+  iamRoleStatements:
+    - Effect: "Allow"
+      Resource: "*"
+      Action:
+        - "sns:*"
+
+functions:
+  reminder:
+    handler: reminder.publish
+    events:
+      - http:
+          path: reminder
+          method: post
+          cors: true

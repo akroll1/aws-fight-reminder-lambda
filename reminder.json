@@ -1,0 +1,5 @@
+{
+    "resource":"/",
+    "path":"/reminder",
+    "httpMethod": "POST"
+}
