@@ -7,12 +7,14 @@ const dynamo = new AWS.DynamoDB.DocumentClient();
 module.exports.publish = (event, context, callback) => {
     console.log('publish route');
     const data = JSON.parse(event.body);
+    let epoch = Math.round(moment.duration(moment(fightTime).tz('America/Phoenix').utc().diff(moment(date).utc())).asMinutes())
+
     //////////////////////////////////////////////
     const params = {
         TableName: process.env.REMINDER_TABLE,
         Key:{
-          tenant: tenant,
-          game: game
+          showId,
+          time
         },
         UpdateExpression: 'SET #questions = list_append(#questions, :data)',
         ExpressionAttributeNames: {
@@ -21,7 +23,7 @@ module.exports.publish = (event, context, callback) => {
         ExpressionAttributeValues: {
           ':data': [data]
         },
-        ReturnValues: 'UPDATED_NEW'
+        ReturnValues: 'NONE'
       };
       
       dynamoDb.update(params, function(err, result) {

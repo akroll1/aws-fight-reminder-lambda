@@ -1,4 +1,4 @@
-service: sns-fight-reminder
+service: fight-reminders
 
 plugins: 
   - serverless-stack-output
@@ -17,7 +17,7 @@ provider:
   stage: dev
   environment:
     TOPIC_ARN: "arn:aws:sns:us-east-1:896748474789:fight-reminders"
-    REMINDER_TABLE: "arn:aws:dynamodb:us-east-1:896748474789:table/${self:service}-${self:custom.stage}-reminder-table"
+    REMINDER_TABLE: "fight-reminders-dev-reminder-table"
 
   iamRoleStatements:
     - Effect: "Allow"
@@ -49,6 +49,14 @@ functions:
           method: post
           cors: true
 
+  create-reminder:
+    handler: src/create.reminder
+    events:
+      - http:
+          path: create
+          method: post
+          cors: true
+
 resources:
   Resources:
     ReminderTable:
@@ -56,15 +64,15 @@ resources:
       DeletionPolicy: Retain
       Properties:
         KeySchema:
-          - AttributeName: showId
+          - AttributeName: scorecardId
             KeyType: HASH
           - AttributeName: time
             KeyType: RANGE
         AttributeDefinitions:
-          - AttributeName: showId
+          - AttributeName: scorecardId
             AttributeType: S
           - AttributeName: time
-            AttributeType: S
+            AttributeType: N
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

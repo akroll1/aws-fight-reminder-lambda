@@ -1,5 +1,7 @@
 {
-  "ReminderLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:896748474789:function:sns-fight-reminder-dev-reminder:2",
-  "ServiceEndpoint": "https://1dy1emvym0.execute-api.us-east-1.amazonaws.com/dev",
-  "ServerlessDeploymentBucketName": "sns-fight-reminder-dev-serverlessdeploymentbucket-1apzcnmz8yo5k"
+  "AuthorizerLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:896748474789:function:fight-reminders-dev-authorizer:2",
+  "CreateDashreminderLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:896748474789:function:fight-reminders-dev-create-reminder:2",
+  "ReminderLambdaFunctionQualifiedArn": "arn:aws:lambda:us-east-1:896748474789:function:fight-reminders-dev-reminder:2",
+  "ServiceEndpoint": "https://01j3uz9phc.execute-api.us-east-1.amazonaws.com/dev",
+  "ServerlessDeploymentBucketName": "fight-reminders-dev-serverlessdeploymentbucket-1s1zeo52x24mu"
 }

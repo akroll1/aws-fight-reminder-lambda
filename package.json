@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "offline": "sls offline --httpPort=5000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -14,6 +15,7 @@
     "node-fetch": "^2.6.1",
     "node-jose": "^2.0.0",
     "serverless-offline": "^6.8.0",
-    "serverless-stack-output": "^0.2.3"
+    "serverless-stack-output": "^0.2.3",
+    "uuidv4": "^6.2.6"
   }
 }
